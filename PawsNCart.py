@@ -63,7 +63,7 @@ while not shopping_completed:
                             found = True
                             break
                     if not found:
-                        cart.append({'item': available_item['item'], 'price': available_item['price'], 'quantity': quantity})
+                        shopping_cart.append({'item': available_item['item'], 'price': available_item['price'], 'quantity': quantity})
                     print(f"{quantity} {available_item['item'].capitalize()}(s) have been added to your basket!")
                     found = True
                 else:
@@ -96,7 +96,7 @@ while not shopping_completed:
     elif choice == "4":
         # Checkout and end the session
         print("Thank you for shopping at Paws N Cart")
-        done = True
+        shopping_completed = True
     else:
         # Input validation for an incorrect menu option
         print("That is not a valid option.")
