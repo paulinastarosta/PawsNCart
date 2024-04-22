@@ -13,26 +13,26 @@ stock_list = [
 ]
 
 # Initialize an empty list to store the items added to the cart
-cart = []
+shopping_cart = []
 
 # A boolean flag to control the loop for the user interface
-done = False
+shopping_completed = False
 
 # Initial greeting message printed to the user
 print("Welcome to Paws n Cart!")
 print("\n")  # Adding a blank line for better readability
 
 # Main program loop that runs until 'done' is set to True
-while not done:
+while not shopping_completed:
     print("-" * 80)  # Print a separator for better readability
     print("This is your shopping cart")
     # Calculate the total price of the items in the cart
-    total_price = sum(item['price'] * item['quantity'] for item in cart) if cart else 0
+    total_price = sum(item['price'] * item['quantity'] for item in shopping_cart) if shopping_cart else 0
     # Iterate over each item in the cart and print its details
-    for item in cart:
+    for item in shopping_cart:
         print(f"Item: {item['item']:15} Price: £{item['price']:.2f} Quantity: {item['quantity']}")
     # Inform the user if the cart is empty
-    print("Your cart is empty.") if not cart else None
+    print("Your cart is empty.") if not shopping_cart else None
     print(f"Total price: £{total_price:.2f}")
     print("-" * 80)
     print("\nWould you like to: ")
@@ -57,13 +57,13 @@ while not done:
             if available_item['item'].lower() == item_name:
                 quantity = int(input(f"How many {available_item['item']} would you like to add? "))
                 if quantity > 0:
-                    for cart_item in cart:
+                    for cart_item in shopping_cart:
                         if cart_item['item'] == available_item['item']:
                             cart_item['quantity'] += quantity
                             found = True
                             break
                     if not found:
-                        cart.append({'item': available_item['item'], 'price': available_item['price'], 'quantity': quantity})
+                        shopping_cart.append({'item': available_item['item'], 'price': available_item['price'], 'quantity': quantity})
                     print(f"{quantity} {available_item['item'].capitalize()}(s) have been added to your basket!")
                     found = True
                 else:
@@ -73,15 +73,15 @@ while not done:
             print("Sorry, that item is not available.")
     elif choice == "3":
         # Option to remove items from the cart
-        if cart:
+        if shopping_cart:
             remove_item = input("Which item would you like to remove from your cart: ").strip().lower()
             found = False
-            for cart_item in cart:
+            for cart_item in shopping_cart:
                 if cart_item['item'].lower() == remove_item:
                     quantity_to_remove = int(input(f"How many {cart_item['item']} would you like to remove? "))
                     if quantity_to_remove > 0 and quantity_to_remove <= cart_item['quantity']:
                         if quantity_to_remove == cart_item['quantity']:
-                            cart.remove(cart_item)
+                            shopping_cart.remove(cart_item)
                         else:
                             cart_item['quantity'] -= quantity_to_remove
                         print(f"{quantity_to_remove} {cart_item['item'].capitalize()}(s) have been removed from your basket!")
@@ -96,7 +96,7 @@ while not done:
     elif choice == "4":
         # Checkout and end the session
         print("Thank you for shopping at Paws N Cart")
-        done = True
+        shopping_completed = True
     else:
         # Input validation for an incorrect menu option
         print("That is not a valid option.")
